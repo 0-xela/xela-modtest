@@ -1,4 +1,4 @@
-package xela.modtest.client.net;
+package xela.modtest.enchantment;
 
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;

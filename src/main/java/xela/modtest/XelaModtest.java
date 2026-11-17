@@ -1,10 +1,13 @@
 package xela.modtest;
 
 import net.fabricmc.api.ModInitializer;
+import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
+import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.resources.Identifier;
-
+import net.minecraft.world.entity.Entity;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import xela.modtest.enchantment.DoubleJumpC2SPayload;
 import xela.modtest.enchantment.EnchantmentList;
 import xela.modtest.item.ItemList;
 
@@ -24,7 +27,14 @@ public class XelaModtest implements ModInitializer {
 
 		LOGGER.info("ModTest Loaded");
 		ItemList.initialize();
+		PayloadTypeRegistry.playC2S().register(DoubleJumpC2SPayload.ID, DoubleJumpC2SPayload.CODEC);
+		ServerPlayNetworking.registerGlobalReceiver(DoubleJumpC2SPayload.ID, (payload, context) -> {
+			Entity entity = context.player().level().getEntity(payload.entityID());
+			entity.addTag("wants-to-jump");
+			LOGGER.info("yapa:");
+		});
 		EnchantmentList.initialize();
+
 
 	}
 

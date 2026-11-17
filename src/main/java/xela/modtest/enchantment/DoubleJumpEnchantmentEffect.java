@@ -33,14 +33,20 @@ public record DoubleJumpEnchantmentEffect(LevelBasedValue amount) implements Enc
             item.set(COOLDOWN, 0);
         }
 
+        if (entity.onGround()) {
+            entity.removeTag("wants-to-jump");
+        }
+
         if (item.get(JUMPS).intValue() > 0
                 && item.get(COOLDOWN).intValue() == 0
                 && entity instanceof Player
-                && entity.isCrouching()
+                && entity.getTags().contains("wants-to-jump")
                 && !entity.onGround()
                 && !entity.isInLiquid()
                 && !entity.isSwimming()) { // this will work once i set up the c2s packet instead of using entity.isCrouching()
             XelaModtest.LOGGER.info("double Jumping");
+            entity.removeTag("wants-to-jump");
+
             if (entity instanceof Player player && (player).isFallFlying()) { // If we are flying with an elytra the double jump instead changes all of our momentum to be in the direction we are looking
                 Vec3 deltaMovement = entity.getDeltaMovement();
                 double magnitude = deltaMovement.length() + 1; // add a little pizzaz
@@ -52,7 +58,8 @@ public record DoubleJumpEnchantmentEffect(LevelBasedValue amount) implements Enc
 
             } else {
                 item.set(JUMPS, enchantedItemInUse.itemStack().get(JUMPS).intValue() - 1);
-                Vec3 jumpMovement = new Vec3(entity.getDeltaMovement().x, Math.max(entity.getDeltaMovement().y + .5, .5), entity.getDeltaMovement().z);
+                // the math does not matter if it feels good
+                Vec3 jumpMovement = new Vec3(entity.getDeltaMovement().x, Math.max(entity.getDeltaMovement().y + .5, .5), entity.getDeltaMovement().z).add(entity.getLookAngle().multiply(new Vec3(.7, 0.1, .7)).scale(1.2));
                 entity.setDeltaMovement(jumpMovement);
                 entity.hurtMarked = true;
                 item.set(COOLDOWN, 10);
