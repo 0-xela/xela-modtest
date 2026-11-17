@@ -1,4 +1,7 @@
 {
   "item.xela-modtest.test-item": "Test Item",
-  "item.xela-modtest.fries": "Fries"
+  "item.xela-modtest.fries": "Fries",
+ "key.category.xela-modtest.xelamod-binds": "xelAmod keybinds",
+ "key.xela-modtest.doublejump": "Double Jump",
+  "enchantment.xela-modtest.double_jump": "Double Jump"
 }
