@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "minecraft:baked_potato",
+    "minecraft:baked_potato",
+    "minecraft:baked_potato"
+  ],
+  "result": {
+    "count": 1,
+    "id": "xela-modtest:fries"
+  }
+}

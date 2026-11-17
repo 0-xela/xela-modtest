@@ -1,0 +1,30 @@
+{
+  "description": "Double Jump",
+  "supported_items": "#minecraft:enchantable/foot_armor",
+  "weight": 1,
+  "max_level": 3,
+  "min_cost": {
+    "base": 1,
+    "per_level_above_first": 10
+  },
+  "max_cost": {
+    "base": 3,
+    "per_level_above_first": 15
+  },
+  "anvil_cost": 5,
+  "slots": [
+    "feet"
+  ],
+  "effects": {
+    "minecraft:tick": [
+      {
+        "effect": "xela-modtest:double-jump",
+        "amount": {
+          "type": "minecraft:linear",
+          "base": 1,
+          "per_level": 1
+        }
+      }
+    ]
+  }
+}
